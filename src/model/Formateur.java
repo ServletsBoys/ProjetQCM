@@ -76,6 +76,13 @@ public class Formateur {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "Formateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom
+				+ ", mail=" + mail + ", login=" + login + ", password="
+				+ password + "]";
+	}
 	
 	
 	

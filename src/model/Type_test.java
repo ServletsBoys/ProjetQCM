@@ -24,5 +24,9 @@ public class Type_test {
 		super();
 		this.libelle = libelle;
 	}
+	@Override
+	public String toString() {
+		return "Type_test [id=" + id + ", libelle=" + libelle + "]";
+	}
 	
 }
