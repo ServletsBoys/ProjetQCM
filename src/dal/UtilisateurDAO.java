@@ -12,7 +12,7 @@ import util.AccesBase;
 
 public class UtilisateurDAO {
 
-	public static Utilisateur rechercher(String login, String password) throws SQLException, NamingException{
+	public static Utilisateur rechercher(String login, String password) throws SQLException, NamingException, ClassNotFoundException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;

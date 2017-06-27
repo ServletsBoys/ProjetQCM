@@ -1,16 +1,19 @@
 package controller;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-import model.Candidat;
 import model.Formateur;
 import model.Test;
 import model.Type_test;
+import util.AccesBase;
 
 public class Test_controller {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		String prenom = "toto";
 		String nom = "jean";
@@ -38,6 +41,33 @@ public class Test_controller {
 		}
 		
 		System.out.println(testLogique.getType_test().toString());
+		
+		
+		 //exemple récupération de données
+		Connection connexion = null;
+		
+		try {
+			connexion = AccesBase.getConnection() ;
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new Exception("probleme de Driver") ;
+		}
+		
+		String sql = "select * from type_test" ;
+		
+		PreparedStatement stmt ;
+		try {
+			stmt = connexion.prepareStatement(sql) ;
+			ResultSet rs = stmt.executeQuery();
+		
+			while(rs.next())
+			{
+				System.out.println(rs.getString("libelle")) ;
+			}
+			connexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("probleme de select");
+		}
 		
 	}
 
