@@ -8,6 +8,10 @@ public class Utilisateur {
 	private String login;
 	private String password;
 	
+	public Utilisateur(){
+		super();
+	}
+	
 	public Utilisateur(int id, String nom, String prenom, String mail,
 			String login, String password) {
 		super();
