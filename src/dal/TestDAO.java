@@ -67,7 +67,9 @@ public class TestDAO {
 		try{
 			cnx=AccesBase.getConnection();
 			rqt=cnx.createStatement();
-			rs=rqt.executeQuery("select * from test t "
+			rs=rqt.executeQuery("select t.id as tid, t.libelle, t.timer, t.utilisateur_id,"
+					+ "u.id as uid, u.nom, u.prenom, u.mail, u.login, u.password "
+					+ "FORM test t "
 					+ "INNER JOIN utilisateur u "
 					+ "ON t.utilisateur_id = u.id");
 			Test test;
@@ -101,8 +103,8 @@ public class TestDAO {
 		Test test = null;
 		try{
 			cnx=AccesBase.getConnection();
-			rqt=cnx.prepareStatement("select * from test t"
-					+ "INNER JOIN utilisateur u"
+			rqt=cnx.prepareStatement("select * from test t "
+					+ "INNER JOIN utilisateur u "
 					+ "ON t.utilisateur_id = u.id"
 					+ "WHERE t.id = ?");
 			rqt.setInt(1, id);
