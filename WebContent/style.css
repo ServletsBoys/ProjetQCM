@@ -2,3 +2,62 @@
 	display:inline-block;
 	margin-left:15px;
 }
+.liste{
+	margin-top:20px;
+}
+.tableQCM{
+	margin:50px auto;
+}
+.tableQCM th, .tableQCM td{
+	padding:10px;
+}
+
+.zonelabel{
+	width:15%;
+	display:inline-block;
+	text-align:right;
+	padding-right:15px;
+}
+.zonelabel span{
+	font-size:0.8em;
+}
+.zoneinput{
+	width:69%;
+	display:inline-block;
+}
+.container{
+	position:relative;
+}
+
+.titre{
+	text-align: center;
+	margin: 60px;
+}
+.zoneinput input, .zoneinput textarea, .zoneinput select{
+	width:100%;
+	min-height:45px;
+}
+.zoneinputReponse input{
+	width:80%;
+}
+.zoneinputReponse button{
+	width:10%;
+}
+.champ{
+	margin:20px 0px;
+}
+.zonebtn{
+	text-align:center;
+
+}
+.zonebtn input{
+	width:120px;
+	height:40px;
+	
+}
+.content{
+	display: block;
+    position: relative;
+    text-align: center;
+    margin-top: 150px;
+}

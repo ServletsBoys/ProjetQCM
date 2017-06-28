@@ -10,7 +10,7 @@
 		<ul class="liste">
 			<li><a href="/">index</a></li>
 			<li><a href="/">creation de qcm</a></li>
-			<li><a href="/">liste de qcm</a></li>
+			<li><a href="listeQcm.jsp">liste de qcm</a></li>
 			<li><a href="/">resultats</a></li>
 			<li><a href="/">log-out</a></li>
 		</ul>
