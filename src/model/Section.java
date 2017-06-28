@@ -3,12 +3,13 @@ package model;
 public class Section {
 	private int id;
 	private String libelle;
-	private Formateur formateur;
-	public Section(int id, String libelle, Formateur formateur) {
+	public Section(int id, String libelle) {
 		super();
 		this.id = id;
 		this.libelle = libelle;
-		this.formateur = formateur;
+	}
+	public Section() {
+		super();
 	}
 	public int getId() {
 		return id;
@@ -22,16 +23,9 @@ public class Section {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-	public Formateur getFormateur() {
-		return formateur;
-	}
-	public void setFormateur(Formateur formateur) {
-		this.formateur = formateur;
-	}
-	public Section(String libelle, Formateur formateur) {
+	public Section(String libelle) {
 		super();
 		this.libelle = libelle;
-		this.formateur = formateur;
 	}
 	
 	

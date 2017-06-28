@@ -15,6 +15,9 @@ public class Reponse {
 		this.reponseCandidat = reponseCandidat;
 		this.question_qcm = question_qcm;
 	}
+	public Reponse() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}

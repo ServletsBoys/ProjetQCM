@@ -10,6 +10,9 @@ public class Theme {
 		this.timer = timer;
 		this.qcm = qcm;
 	}
+	public Theme() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}

@@ -25,6 +25,10 @@ public class Question {
 		this.type_question = type_question;
 		this.section = section;
 	}
+	
+	public Question() {
+		super();
+	}
 
 
 	public int getId() {
