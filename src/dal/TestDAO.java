@@ -10,17 +10,16 @@ import util.*;
 
 public class TestDAO {
 
-	public static void ajouter(Test test) throws SQLException, NamingException{
+	public static void ajouter(Test test) throws SQLException, NamingException, ClassNotFoundException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
 
 		try{
 			cnx=AccesBase.getConnection();
-			rqt=cnx.prepareStatement("insert into test(libelle, timer, type_test_id, formateur_id) values (?,?,?,?)");
+			rqt=cnx.prepareStatement("insert into test(libelle, timer, utilisateur_id) values (?,?,?)");
 			rqt.setString(1, test.getLibelle());
 			rqt.setInt(2, test.getTimer());
-			rqt.setInt(3, test.getType_test().getId());
-			rqt.setInt(4, test.getFormateur().getId());
+			rqt.setInt(3, test.getUtilisateur().getId());
 			rqt.executeUpdate();
 		}finally{
 			if (rqt!=null) rqt.close();
@@ -28,7 +27,7 @@ public class TestDAO {
 		}
 	}
 	
-	public static void supprimer(Test test) throws SQLException, NamingException{
+	public static void supprimer(Test test) throws SQLException, NamingException, ClassNotFoundException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
 		try{
@@ -42,17 +41,16 @@ public class TestDAO {
 		}
 	}
 	
-	public static void modifier(Test test) throws SQLException, NamingException{
+	public static void modifier(Test test) throws SQLException, NamingException, ClassNotFoundException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
 		try{
 			cnx=AccesBase.getConnection();
-			rqt=cnx.prepareStatement("update test set libelle = ?, timer = ?, type_test_id = ?, formateur_id = ? where id = ?");
+			rqt=cnx.prepareStatement("update test set libelle = ?, timer = ?, utilisateur_id = ? where id = ?");
 			rqt.setString(1, test.getLibelle());
 			rqt.setInt(2, test.getTimer());
-			rqt.setInt(3,test.getType_test().getId());
-			rqt.setInt(4,test.getFormateur().getId());
-			rqt.setInt(5, test.getId());
+			rqt.setInt(3,test.getUtilisateur().getId());
+			rqt.setInt(4, test.getId());
 
 			rqt.executeUpdate();
 		}finally{
@@ -61,7 +59,7 @@ public class TestDAO {
 		}
 	}
 	
-	public static ArrayList<Test> rechercher() throws SQLException, NamingException{
+	public static ArrayList<Test> rechercher() throws SQLException, NamingException, ClassNotFoundException{
 		Connection cnx=null;
 		Statement rqt=null;
 		ResultSet rs=null;
@@ -69,15 +67,20 @@ public class TestDAO {
 		try{
 			cnx=AccesBase.getConnection();
 			rqt=cnx.createStatement();
-			rs=rqt.executeQuery("select id, libelle, timer, type_test_id, formateur_id from test t, ");
+			rs=rqt.executeQuery("select * from test t, utilisateur u"
+					+ "where t.utilisateur_id = u.id ");
 			Test test;
 			while (rs.next()){
 				test = new Test(
 									rs.getInt("id"),
 									rs.getString("libelle"),
 									rs.getInt("timer"),
-									new Formateur ,
-									rs.getInt("formateur_id")
+									new Utilisateur(rs.getInt("u.id"), 
+											rs.getString("u.nom"), 
+											rs.getString("u.prenom"),
+											rs.getString("u.mail"),
+											rs.getString("u.login"),
+											rs.getString("u.password"))
 						);
 				listeTests.add(test);				
 			}
@@ -88,5 +91,35 @@ public class TestDAO {
 		}
 		
 		return listeTests;
+	}
+	
+	public static Test rechercher(int id) throws SQLException, NamingException, ClassNotFoundException{
+		Connection cnx=null;
+		PreparedStatement rqt=null;
+		ResultSet rs=null;
+		Test test = null;
+		try{
+			cnx=AccesBase.getConnection();
+			rqt=cnx.prepareStatement("select * from test t, utilisateur u where id = ? and t.utilisateur_id = u.id");
+			rqt.setInt(1, id);
+			rs=rqt.executeQuery();
+			while (rs.next()){
+				if (test==null) test = new Test();
+				test.setLibelle(rs.getString("libelle"));				
+				test.setTimer(rs.getInt("timer"));
+				test.setUtilisateur(new Utilisateur(rs.getInt("u.id"), 
+						rs.getString("u.nom"), 
+						rs.getString("u.prenom"),
+						rs.getString("u.mail"),
+						rs.getString("u.login"),
+						rs.getString("u.password")));
+			}
+		}finally{
+			if (rs!=null) rs.close();
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		
+		return test;
 	}
 }

@@ -39,7 +39,7 @@ public class Test {
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
-	public void setFormateur(Utilisateur utilisateur) {
+	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
 	public Test(String libelle, int timer, Utilisateur utilisateur) {

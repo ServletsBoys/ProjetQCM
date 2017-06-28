@@ -6,9 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.Formateur;
 import model.Test;
-import model.Type_test;
+import model.Utilisateur;
 import util.AccesBase;
 
 public class Test_controller {
@@ -20,13 +19,12 @@ public class Test_controller {
 		String mail = "jean.toto@gmail.com";
 		String login = "logtoto";
 		String password = "azerty7894";
-		Formateur michel = new Formateur(nom, prenom, mail, login, password);
+		Utilisateur michel = new Utilisateur(nom, prenom, mail, login, password);
 		System.out.println(michel.toString());
-		Type_test typetest1 = new Type_test("rapidité");
-		Test testLogique = new Test("logique", 60, michel, typetest1);
-		Test testLogique2 = new Test("logique2", 6000, michel, typetest1);
-		Test testLogique3 = new Test("logique3", 605, michel, typetest1);
-		Test testLogique4 = new Test("logique4", 600, michel, typetest1);
+		Test testLogique = new Test("logique", 60, michel);
+		Test testLogique2 = new Test("logique2", 6000, michel);
+		Test testLogique3 = new Test("logique3", 605, michel);
+		Test testLogique4 = new Test("logique4", 600, michel);
 	
 		ArrayList<Test> listTest = new ArrayList<Test>();
 		listTest.add(testLogique);
@@ -40,7 +38,6 @@ public class Test_controller {
 			System.out.println(test.getLibelle());
 		}
 		
-		System.out.println(testLogique.getType_test().toString());
 		
 		
 		 //exemple récupération de données
