@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.naming.NamingException;
 
@@ -42,5 +44,36 @@ public class UtilisateurDAO {
 			if (cnx!=null) cnx.close();
 		}
 		return utilisateur;
+	}
+	
+	
+	public static ArrayList<Utilisateur> rechercher() throws SQLException, NamingException, ClassNotFoundException{
+		Connection cnx=null;
+		Statement rqt=null;
+		ResultSet rs=null;
+		ArrayList<Utilisateur> listeUtilisateurs = new ArrayList<Utilisateur>();
+		try{
+			cnx=AccesBase.getConnection();
+			rqt=cnx.createStatement();
+			rs=rqt.executeQuery("select id, nom, prenom, mail, login, password, type_utilisateur_id FROM utilisateur");
+			Utilisateur utilisateur;
+			while (rs.next()){
+				utilisateur = new Utilisateur(
+									rs.getInt("id"),
+									rs.getString("nom"),
+									rs.getString("prenom"),
+									rs.getString("mail"),
+									rs.getString("login"),
+									rs.getString("password")
+						);
+				listeUtilisateurs.add(utilisateur);				
+			}
+		}finally{
+			if (rs!=null) rs.close();
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		
+		return listeUtilisateurs;
 	}
 }
