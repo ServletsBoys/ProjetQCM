@@ -69,21 +69,21 @@ public class TestDAO {
 			rqt=cnx.createStatement();
 			rs=rqt.executeQuery("select t.id as tid, t.libelle, t.timer, t.utilisateur_id,"
 					+ "u.id as uid, u.nom, u.prenom, u.mail, u.login, u.password "
-					+ "FORM test t "
+					+ "FROM test t "
 					+ "INNER JOIN utilisateur u "
 					+ "ON t.utilisateur_id = u.id");
 			Test test;
 			while (rs.next()){
 				test = new Test(
-									rs.getInt("id"),
+									rs.getInt("tid"),
 									rs.getString("libelle"),
 									rs.getInt("timer"),
-									new Utilisateur(rs.getInt("u.id"), 
-											rs.getString("u.nom"), 
-											rs.getString("u.prenom"),
-											rs.getString("u.mail"),
-											rs.getString("u.login"),
-											rs.getString("u.password"))
+									new Utilisateur(rs.getInt("uid"), 
+											rs.getString("nom"), 
+											rs.getString("prenom"),
+											rs.getString("mail"),
+											rs.getString("login"),
+											rs.getString("password"))
 						);
 				listeTests.add(test);				
 			}
