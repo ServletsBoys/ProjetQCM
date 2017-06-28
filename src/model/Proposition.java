@@ -5,6 +5,7 @@ public class Proposition {
 	private String libelle;
 	private String reponse;
 	private Question question;
+	
 	public Proposition(int id, String libelle, String reponse, Question question) {
 		super();
 		this.id = id;
@@ -12,12 +13,18 @@ public class Proposition {
 		this.reponse = reponse;
 		this.question = question;
 	}
+	
 	public Proposition( String libelle, String reponse, Question question) {
 		super();
 		this.libelle = libelle;
 		this.reponse = reponse;
 		this.question = question;
 	}
+	
+	public Proposition( ) {
+		super();
+	}
+	
 	public int getId() {
 		return id;
 	}

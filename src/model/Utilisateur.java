@@ -7,6 +7,7 @@ public class Utilisateur {
 	private String mail;
 	private String login;
 	private String password;
+	private Type_Utilisateur type_utilisateur;
 	
 	public Utilisateur(){
 		super();
@@ -69,6 +70,13 @@ public class Utilisateur {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Type_Utilisateur getType_Utilisateur() {
+		return type_utilisateur;
+	}
+	public void setType_Utilisateur(Type_Utilisateur type_utilisateur) {
+		this.type_utilisateur = type_utilisateur;
 	}
 
 	public Utilisateur(String nom, String prenom, String mail, String login,

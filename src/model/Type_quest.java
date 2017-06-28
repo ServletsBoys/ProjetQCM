@@ -24,6 +24,9 @@ public class Type_quest {
 		super();
 		this.libelle = libelle;
 	}
+	public Type_quest() {
+		super();
+	}
 	
 	
 }

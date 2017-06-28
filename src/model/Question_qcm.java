@@ -17,6 +17,11 @@ public class Question_qcm {
 		this.theme = theme;
 		this.type_question = type_question;
 	}
+	
+	public Question_qcm() {
+		super();
+	}
+	
 	public int getId() {
 		return id;
 	}
