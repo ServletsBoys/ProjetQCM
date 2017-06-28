@@ -2,14 +2,16 @@ package model;
 
 public class Theme {
 	private int id;
-	private int timer;
+	private String libelle;
 	private Qcm qcm;
-	public Theme(int id, int timer, Qcm qcm) {
+	
+	public Theme(int id, String libelle, Qcm qcm) {
 		super();
 		this.id = id;
-		this.timer = timer;
+		this.libelle = libelle;
 		this.qcm = qcm;
 	}
+	
 	public Theme() {
 		super();
 	}
@@ -19,11 +21,11 @@ public class Theme {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getTimer() {
-		return timer;
+	public String getLibelle() {
+		return libelle;
 	}
-	public void setTimer(int timer) {
-		this.timer = timer;
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
 	public Qcm getQcm() {
 		return qcm;
@@ -31,9 +33,9 @@ public class Theme {
 	public void setQcm(Qcm qcm) {
 		this.qcm = qcm;
 	}
-	public Theme(int timer, Qcm qcm) {
+	public Theme(String libelle, Qcm qcm) {
 		super();
-		this.timer = timer;
+		this.libelle = libelle;
 		this.qcm = qcm;
 	}
 	
