@@ -11,6 +11,6 @@
 			<li><a href="creerTest.jsp">creation de qcm</a></li>
 			<li><a href="listeQcmServlet">liste de qcm</a></li>
 			<li><a href="/">resultats</a></li>
-			<li><a href="login.jsp">log-out</a></li>
+			<li><a href="./connexion">Connexion</a></li>
 		</ul>
 	</head>
