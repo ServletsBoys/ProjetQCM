@@ -14,15 +14,15 @@ import util.AccesBase;
 
 public class UtilisateurDAO {
 
-	public static Utilisateur rechercher(String login, String password) throws SQLException, NamingException, ClassNotFoundException{
+	public static Utilisateur rechercher(String mail, String password) throws SQLException, NamingException, ClassNotFoundException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
 		Utilisateur utilisateur=null;
 		try{
 			cnx = AccesBase.getConnection();
-			rqt = cnx.prepareStatement("select id, nom, prenom, mail from utilisateur where login=? and password=?");
-			rqt.setString(1, login);
+			rqt = cnx.prepareStatement("select id, nom, prenom, mail from utilisateur where mail=? and password=?");
+			rqt.setString(1, mail);
 			rqt.setString(2, password);
 			rs=rqt.executeQuery();
 			// SI on trouve au moins 1 r�sultat, on prend le 1er pour mettre � jour les informations de l'animateur utilis� pour la recherche.
