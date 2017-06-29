@@ -68,10 +68,11 @@ public class TestDAO {
 			cnx=AccesBase.getConnection();
 			rqt=cnx.createStatement();
 			rs=rqt.executeQuery("select t.id as tid, t.libelle, t.timer, t.utilisateur_id,"
-					+ "u.id as uid, u.nom, u.prenom, u.mail, u.login, u.password "
+					+ "u.id as uid, u.nom, u.prenom, u.mail, u.login, u.password, Count(test_id) "
 					+ "FROM test t "
-					+ "INNER JOIN utilisateur u "
-					+ "ON t.utilisateur_id = u.id");
+					+ "INNER JOIN utilisateur u ON t.utilisateur_id = u.id "
+					+ "LEFT JOIN SEC_TEST st ON st.test_id = t.id"
+					+ "GROUP BY t.id, t.libelle, t.timer, t.utilisateur_id,u.id, u.nom, u.prenom, u.mail, u.login, u.password");
 			Test test;
 			while (rs.next()){
 				test = new Test(
