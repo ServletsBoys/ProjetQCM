@@ -104,15 +104,49 @@ public class TestDAO {
 		Test test = null;
 		try{
 			cnx=AccesBase.getConnection();
-			rqt=cnx.prepareStatement("select * from test t "
+			rqt=cnx.prepareStatement("select t.id as tid, t.libelle, t.timer, t.utilisateur_id, u.id as uid, u.nom, u.prenom, u.mail, u.login, u.password"
+					+ "FROM test t "
 					+ "INNER JOIN utilisateur u "
-					+ "ON t.utilisateur_id = u.id"
+					+ "ON t.utilisateur_id = u.id "
 					+ "WHERE t.id = ?");
 			rqt.setInt(1, id);
 			rs=rqt.executeQuery();
 			while (rs.next()){
 				if (test==null) test = new Test();
 				test.setLibelle(rs.getString("libelle"));				
+				test.setTimer(rs.getInt("timer"));
+				test.setUtilisateur(new Utilisateur(rs.getInt("uid"), 
+						rs.getString("nom"), 
+						rs.getString("prenom"),
+						rs.getString("mail"),
+						rs.getString("login"),
+						rs.getString("password")));
+			}
+		}finally{
+			if (rs!=null) rs.close();
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		
+		return test;
+	}
+	
+	public static Test rechercherQuestions(int id) throws SQLException, NamingException, ClassNotFoundException{
+		Connection cnx=null;
+		PreparedStatement rqt=null;
+		ResultSet rs=null;
+		Test test = null;
+		try{
+			cnx=AccesBase.getConnection();
+			rqt=cnx.prepareStatement("select q.libelle as lib, image, type_quest_id, section_id "
+					+ "FROM question q "
+					+ "INNER JOIN sec_test st ON st.question_id = q.id "
+					+ "WHERE st.test_id = ?");
+			rqt.setInt(1, id);
+			rs=rqt.executeQuery();
+			while (rs.next()){
+				if (test==null) test = new Test();
+				test.setLibelle(rs.getString("lib"));				
 				test.setTimer(rs.getInt("timer"));
 				test.setUtilisateur(new Utilisateur(rs.getInt("u.id"), 
 						rs.getString("u.nom"), 
