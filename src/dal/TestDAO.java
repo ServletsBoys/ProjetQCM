@@ -131,11 +131,11 @@ public class TestDAO {
 		return test;
 	}
 	
-	public static Question rechercherQuestions(int id) throws SQLException, NamingException, ClassNotFoundException{
+	public static ArrayList<Question> rechercherQuestions(int id) throws SQLException, NamingException, ClassNotFoundException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
 		ResultSet rs=null;
-		Question question = null;
+		ArrayList<Question> listeQuestions = new ArrayList<Question>();
 		try{
 			cnx=AccesBase.getConnection();
 			rqt=cnx.prepareStatement("select q.libelle as lib, image, tq.libelle as tqlib, sec.libelle as seclib "
@@ -146,12 +146,15 @@ public class TestDAO {
 					+ "WHERE st.test_id = ?");
 			rqt.setInt(1, id);
 			rs=rqt.executeQuery();
+			Question question;
 			while (rs.next()){
-				if (question==null) question = new Question();
-				question.setLibelle(rs.getString("lib"));				
-				question.setImage(rs.getString("image"));
-				question.setType_question(new Type_quest(rs.getString("tqlib")));
-				question.setSection(new Section(rs.getString("seclib")));
+				question = new Question(
+						rs.getString("lib"),
+						rs.getString("image"),
+						new Type_quest(rs.getString("tqlib")),
+						new Section(rs.getString("seclib"))
+			);
+				listeQuestions.add(question);
 			}
 		}finally{
 			if (rs!=null) rs.close();
@@ -159,6 +162,6 @@ public class TestDAO {
 			if (cnx!=null) cnx.close();
 		}
 		
-		return question;
+		return listeQuestions;
 	}
 }
