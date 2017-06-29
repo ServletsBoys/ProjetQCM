@@ -2,21 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
-		<link rel="stylesheet" href="<%= request.getContextPath() %>/bootstrap/bootstrap.min.css">
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-		<script src="<%= request.getContextPath() %>/script.js" ></script>
-		<title>SERVLETBOYS - QCMs</title>
-		<ul class="liste">
-			<li><a href="/">index</a></li>
-			<li><a href="/">creation de qcm</a></li>
-			<li><a href="/">liste de qcm</a></li>
-			<li><a href="/">resultats</a></li>
-			<li><a href="/">log-out</a></li>
-		</ul>
-	</head>
+<%@include file="header.jsp" %>
 	<body>
 		<div class="titre">
 			<h2>ENI - QCM</h2>

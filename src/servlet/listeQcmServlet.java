@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Test;
+import model.Utilisateur;
 import dal.TestDAO;
 
 /**
@@ -43,11 +44,18 @@ public class listeQcmServlet extends HttpServlet {
 		doWork(request, response);
 	}
 	protected void doWork(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		Utilisateur user1 = new Utilisateur();
+		user1.setId(14);
+		
 		ArrayList<Test> lesTests = new ArrayList<Test>();
 		TestDAO bddtest = new TestDAO();
 		try {
 			lesTests = bddtest.rechercher();
-			System.out.println(lesTests);
+			//bddtest.ajouter(new Test("logique", 955, user1));
+			request.setAttribute("lesTests", lesTests);
+//			System.out.println(lesTests);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

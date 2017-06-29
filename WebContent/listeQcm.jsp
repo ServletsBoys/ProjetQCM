@@ -2,19 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
-		<link rel="stylesheet" href="<%= request.getContextPath() %>/bootstrap/bootstrap.min.css">
-		<title>SERVLETBOYS - QCMs</title>
-		<ul class="liste">
-			<li><a href="/">index</a></li>
-			<li><a href="/">creation de qcm</a></li>
-			<li><a href="/">liste de qcm</a></li>
-			<li><a href="/">resultats</a></li>
-			<li><a href="/">log-out</a></li>
-		</ul>
-	</head>
+	<%@include file="header.jsp" %>
 	<body>
 		<div class="content">
 			<a href="creerTest.jsp">Créer un test</a>
@@ -28,6 +16,17 @@
 					<th></th>
 					<th></th>
 				</tr>
+				<c:forEach var="item" items="${lesTests}">
+					<tr>
+						<td>${item.libelle}</td>
+						<td>${item.utilisateur.nom}</td>
+						<td>${item.timer}</td>
+						<td>zafzaf</td>
+						<td><a href="">modifier</a></td>
+						<td><a href="">ajouter participant</a></td>
+						<td><a href="">Supprimer</a></td>
+					</tr>
+				</c:forEach>
 				<tr>
 					<td>QCM 51234</td>
 					<td>23</td>
