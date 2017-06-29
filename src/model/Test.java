@@ -5,6 +5,7 @@ public class Test {
 	private String libelle;
 	private int timer;
 	private Utilisateur utilisateur;
+	private int nbQuestion;
 	
 	public Test(int id, String libelle, int timer, Utilisateur utilisateur) {
 		super();
@@ -18,6 +19,14 @@ public class Test {
 		super();
 	}
 	
+	public int getNbQuestion() {
+		return nbQuestion;
+	}
+
+	public void setNbQuestion(int nbQuestion) {
+		this.nbQuestion = nbQuestion;
+	}
+
 	public int getId() {
 		return id;
 	}

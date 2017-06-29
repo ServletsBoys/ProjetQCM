@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -11,23 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Test;
-import model.Utilisateur;
 import dal.TestDAO;
 
 /**
- * Servlet implementation class listeQcmServlet
+ * Servlet implementation class deleteQcmServlet
  */
-public class listeQcmServlet extends HttpServlet {
+public class deleteQcmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public listeQcmServlet() {
+    public deleteQcmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -44,18 +41,15 @@ public class listeQcmServlet extends HttpServlet {
 		doWork(request, response);
 	}
 	protected void doWork(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		Utilisateur user1 = new Utilisateur();
-		user1.setId(14);
-		
-		ArrayList<Test> lesTests = new ArrayList<Test>();
 		TestDAO bddtest = new TestDAO();
+		System.out.println("supprimer");
+		Integer idTest = Integer.parseInt(request.getParameter("idTest"));
+		System.out.println(idTest);
+		Test test = new Test();
+		test.setId(idTest);
 		try {
-			lesTests = bddtest.rechercher();
-			//bddtest.ajouter(new Test("logique", 955, user1));
-			request.setAttribute("lesTests", lesTests);
-//			System.out.println(lesTests);
+			bddtest.supprimer(test);
+			System.out.println("suppression reussi ! :D ");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,7 +60,7 @@ public class listeQcmServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		request.getRequestDispatcher("/listeQcm.jsp").forward(request, response);
+		request.getRequestDispatcher("listeQcmServlet").forward(request, response);
 	}
+
 }

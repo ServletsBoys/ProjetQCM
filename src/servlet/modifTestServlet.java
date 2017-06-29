@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -10,24 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import model.Test;
-import model.Utilisateur;
 import dal.TestDAO;
 
 /**
- * Servlet implementation class listeQcmServlet
+ * Servlet implementation class modifTestServlet
  */
-public class listeQcmServlet extends HttpServlet {
+public class modifTestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public listeQcmServlet() {
+    public modifTestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -43,19 +42,32 @@ public class listeQcmServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doWork(request, response);
 	}
-	protected void doWork(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		Utilisateur user1 = new Utilisateur();
-		user1.setId(14);
-		
-		ArrayList<Test> lesTests = new ArrayList<Test>();
+	
+	protected void doWork(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		TestDAO bddtest = new TestDAO();
+		Test test;
 		try {
-			lesTests = bddtest.rechercher();
-			//bddtest.ajouter(new Test("logique", 955, user1));
-			request.setAttribute("lesTests", lesTests);
-//			System.out.println(lesTests);
+			System.out.println(request.getParameter("idTest"));
+			test = bddtest.rechercher(Integer.valueOf(request.getParameter("idTest")));
+			test.setId(Integer.valueOf(request.getParameter("idTest")));
+			request.setAttribute("test", test);
+			System.out.println(test.getLibelle());
+			System.out.println("on passe dans le if si c'est pas vide : "+request.getParameter("libelle"));
+			if(request.getParameter("libelle") == null ){
+				request.getRequestDispatcher("/modifTest.jsp").forward(request, response);
+			}else{
+				Test nouvtest = new Test();
+				nouvtest.setLibelle(request.getParameter("libelle"));
+				nouvtest.setTimer(Integer.valueOf(request.getParameter("timer")));
+				nouvtest.setId(Integer.valueOf(request.getParameter("idTest")));
+				bddtest.modifier(nouvtest);
+				System.out.println("test bien modifier");
+				request.setAttribute("test", nouvtest);
+				request.getRequestDispatcher("/modifTest.jsp").forward(request, response);
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,6 +79,8 @@ public class listeQcmServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("/listeQcm.jsp").forward(request, response);
+
+		
+		
 	}
 }
