@@ -52,7 +52,6 @@ public class TestDAO {
 			rqt.setInt(3, test.getId());
 
 			rqt.executeUpdate();
-			System.out.println("le test "+test.getLibelle()+" a bien ete modifier");
 		}finally{
 			if (rqt!=null) rqt.close();
 			if (cnx!=null) cnx.close();
@@ -132,29 +131,27 @@ public class TestDAO {
 		return test;
 	}
 	
-	public static Test rechercherQuestions(int id) throws SQLException, NamingException, ClassNotFoundException{
+	public static Question rechercherQuestions(int id) throws SQLException, NamingException, ClassNotFoundException{
 		Connection cnx=null;
 		PreparedStatement rqt=null;
 		ResultSet rs=null;
-		Test test = null;
+		Question question = null;
 		try{
 			cnx=AccesBase.getConnection();
-			rqt=cnx.prepareStatement("select q.libelle as lib, image, type_quest_id, section_id "
+			rqt=cnx.prepareStatement("select q.libelle as lib, image, tq.libelle as tqlib, sec.libelle as seclib "
 					+ "FROM question q "
 					+ "INNER JOIN sec_test st ON st.question_id = q.id "
+					+ "LEFT JOIN TYPE_QUEST tq ON tq.id = q.type_quest_id "
+					+ "LEFT JOIN SECTION sec ON sec.id = q.section_id "
 					+ "WHERE st.test_id = ?");
 			rqt.setInt(1, id);
 			rs=rqt.executeQuery();
 			while (rs.next()){
-				if (test==null) test = new Test();
-				test.setLibelle(rs.getString("lib"));				
-				test.setTimer(rs.getInt("timer"));
-				test.setUtilisateur(new Utilisateur(rs.getInt("u.id"), 
-						rs.getString("u.nom"), 
-						rs.getString("u.prenom"),
-						rs.getString("u.mail"),
-						rs.getString("u.login"),
-						rs.getString("u.password")));
+				if (question==null) question = new Question();
+				question.setLibelle(rs.getString("lib"));				
+				question.setImage(rs.getString("image"));
+				question.setType_question(new Type_quest(rs.getString("tqlib")));
+				question.setSection(new Section(rs.getString("seclib")));
 			}
 		}finally{
 			if (rs!=null) rs.close();
@@ -162,6 +159,6 @@ public class TestDAO {
 			if (cnx!=null) cnx.close();
 		}
 		
-		return test;
+		return question;
 	}
 }
