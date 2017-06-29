@@ -1,11 +1,14 @@
 package forms;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import dal.UtilisateurDAO;
+import model.Type_Utilisateur;
 import model.Utilisateur;
 
 public final class ConnexionForm {
@@ -23,7 +26,7 @@ public final class ConnexionForm {
         return erreurs;
     }
 
-    public Utilisateur connecterUtilisateur( HttpServletRequest request ) {
+    public Utilisateur connecterUtilisateur( HttpServletRequest request ) throws ClassNotFoundException, SQLException, NamingException {
         /* Récupération des champs du formulaire */
         String email = getValeurChamp( request, CHAMP_EMAIL );
         String motDePasse = getValeurChamp( request, CHAMP_PASS );
@@ -54,6 +57,7 @@ public final class ConnexionForm {
         
         utilisateur.setMail( email );
         utilisateur.setPassword( motDePasse );
+        utilisateur.setType_Utilisateur(UtilisateurDAO.get_type_utilisateur(email, motDePasse));
 
         /* Initialisation du résultat global de la validation. */
         if ( erreurs.isEmpty() ) {

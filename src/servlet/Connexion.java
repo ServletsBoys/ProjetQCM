@@ -1,7 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +30,13 @@ public class Connexion extends HttpServlet {
         ConnexionForm form = new ConnexionForm();
 
         /* Traitement de la requête et récupération du bean en résultant */
-        Utilisateur utilisateur = form.connecterUtilisateur( request );
+        Utilisateur utilisateur = null;
+		try {
+			utilisateur = form.connecterUtilisateur( request );
+		} catch (ClassNotFoundException | SQLException | NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         /* Récupération de la session depuis la requête */
         HttpSession session = request.getSession();
