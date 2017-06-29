@@ -22,47 +22,11 @@
 						<td>${item.nbQuestion}</td>
 						<td>${item.timer}</td>
 						<td>${item.utilisateur.nom} ${item.utilisateur.prenom}</td>
-						<td><a href="">modifier</a></td>
+						<td><a href="modifTestServlet?idTest=${item.id}">modifier</a></td>
 						<td><a href="">ajouter participant</a></td>
 						<td><a href="deleteQcmServlet?idTest=${item.id}">Supprimer</a></td>
 					</tr>
 				</c:forEach>
-				<tr>
-					<td>QCM 51234</td>
-					<td>23</td>
-					<td>15:00</td>
-					<td>logique</td>
-					<td><a href="">modifier</a></td>
-					<td><a href="">ajouter participant</a></td>
-					<td><a href="">Supprimer</a></td>
-				</tr>
-				<tr>
-					<td>QCM 51235</td>
-					<td>45</td>
-					<td>15:00</td>
-					<td>servlet</td>
-					<td><a href="">modifier</a></td>
-					<td><a href="">ajouter participant</a></td>
-					<td><a href="">Supprimer</a></td>
-				</tr>
-				<tr>
-					<td>QCM 51236</td>
-					<td>60</td>
-					<td>15:00</td>
-					<td>sql</td>
-					<td><a href="">modifier</a></td>
-					<td><a href="">ajouter participant</a></td>
-					<td><a href="">Supprimer</a></td>
-				</tr>
-				<tr>
-					<td>QCM 51237</td>
-					<td>1</td>
-					<td>10:00</td>
-					<td>mathématiques</td>
-					<td><a href="">modifier</a></td>
-					<td><a href="">ajouter participant</a></td>
-					<td><a href="">Supprimer</a></td>
-				</tr>
 			</table>
 		</div>
 	</body>

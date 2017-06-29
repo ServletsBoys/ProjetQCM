@@ -39,4 +39,14 @@
     <servlet-name>deleteQcmServlet</servlet-name>
     <url-pattern>/deleteQcmServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>modifTestServlet</display-name>
+    <servlet-name>modifTestServlet</servlet-name>
+    <servlet-class>servlet.modifTestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifTestServlet</servlet-name>
+    <url-pattern>/modifTestServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

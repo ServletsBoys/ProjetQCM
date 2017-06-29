@@ -52,6 +52,7 @@ public class TestDAO {
 			rqt.setInt(3, test.getId());
 
 			rqt.executeUpdate();
+			System.out.println("le test "+test.getLibelle()+" a bien ete modifier");
 		}finally{
 			if (rqt!=null) rqt.close();
 			if (cnx!=null) cnx.close();
@@ -104,7 +105,7 @@ public class TestDAO {
 		Test test = null;
 		try{
 			cnx=AccesBase.getConnection();
-			rqt=cnx.prepareStatement("select t.id as tid, t.libelle, t.timer, t.utilisateur_id, u.id as uid, u.nom, u.prenom, u.mail, u.login, u.password"
+			rqt=cnx.prepareStatement("select t.id as tid, t.libelle, t.timer, t.utilisateur_id, u.id as uid, u.nom, u.prenom, u.mail, u.login, u.password "
 					+ "FROM test t "
 					+ "INNER JOIN utilisateur u "
 					+ "ON t.utilisateur_id = u.id "
