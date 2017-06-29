@@ -19,4 +19,24 @@
     <servlet-name>listeQcmServlet</servlet-name>
     <url-pattern>/listeQcmServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>testServlet</display-name>
+    <servlet-name>testServlet</servlet-name>
+    <servlet-class>servlet.testServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>testServlet</servlet-name>
+    <url-pattern>/testServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>deleteQcmServlet</display-name>
+    <servlet-name>deleteQcmServlet</servlet-name>
+    <servlet-class>servlet.deleteQcmServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteQcmServlet</servlet-name>
+    <url-pattern>/deleteQcmServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

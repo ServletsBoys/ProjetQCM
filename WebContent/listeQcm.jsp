@@ -11,7 +11,7 @@
 					<th>Nom (id)</th>
 					<th>nb questions</th>
 					<th>temps(min)</th>
-					<th>type</th>
+					<th>Formateur associé</th>
 					<th></th>
 					<th></th>
 					<th></th>
@@ -19,12 +19,12 @@
 				<c:forEach var="item" items="${lesTests}">
 					<tr>
 						<td>${item.libelle}</td>
-						<td>${item.utilisateur.nom}</td>
+						<td>${item.nbQuestion}</td>
 						<td>${item.timer}</td>
-						<td>zafzaf</td>
+						<td>${item.utilisateur.nom} ${item.utilisateur.prenom}</td>
 						<td><a href="">modifier</a></td>
 						<td><a href="">ajouter participant</a></td>
-						<td><a href="">Supprimer</a></td>
+						<td><a href="deleteQcmServlet?idTest=${item.id}">Supprimer</a></td>
 					</tr>
 				</c:forEach>
 				<tr>

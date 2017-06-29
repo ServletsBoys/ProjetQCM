@@ -48,7 +48,7 @@
 				</div>
 			</div>
 			<div class="zonebtn">
-				<a href="listeQcm.jsp">Retour</a>
+				<a href="listeQcmServlet">Retour</a>
 				<input type="submit" value="creer !" name="submitBTN" />
 				
 			</div>

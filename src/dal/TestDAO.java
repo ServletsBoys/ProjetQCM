@@ -46,11 +46,10 @@ public class TestDAO {
 		PreparedStatement rqt=null;
 		try{
 			cnx=AccesBase.getConnection();
-			rqt=cnx.prepareStatement("update test set libelle = ?, timer = ?, utilisateur_id = ? where id = ?");
+			rqt=cnx.prepareStatement("update test set libelle = ?, timer = ? where id = ?");
 			rqt.setString(1, test.getLibelle());
 			rqt.setInt(2, test.getTimer());
-			rqt.setInt(3,test.getUtilisateur().getId());
-			rqt.setInt(4, test.getId());
+			rqt.setInt(3, test.getId());
 
 			rqt.executeUpdate();
 		}finally{
@@ -68,10 +67,10 @@ public class TestDAO {
 			cnx=AccesBase.getConnection();
 			rqt=cnx.createStatement();
 			rs=rqt.executeQuery("select t.id as tid, t.libelle, t.timer, t.utilisateur_id,"
-					+ "u.id as uid, u.nom, u.prenom, u.mail, u.login, u.password, Count(test_id) "
+					+ "u.id as uid, u.nom, u.prenom, u.mail, u.login, u.password, Count(test_id) as nb "
 					+ "FROM test t "
 					+ "INNER JOIN utilisateur u ON t.utilisateur_id = u.id "
-					+ "LEFT JOIN SEC_TEST st ON st.test_id = t.id"
+					+ "LEFT JOIN SEC_TEST st ON st.test_id = t.id "
 					+ "GROUP BY t.id, t.libelle, t.timer, t.utilisateur_id,u.id, u.nom, u.prenom, u.mail, u.login, u.password");
 			Test test;
 			while (rs.next()){
@@ -86,6 +85,7 @@ public class TestDAO {
 											rs.getString("login"),
 											rs.getString("password"))
 						);
+				test.setNbQuestion(rs.getInt("nb"));
 				listeTests.add(test);				
 			}
 		}finally{
