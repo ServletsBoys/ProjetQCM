@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.naming.NamingException;
 
+import model.Type_Utilisateur;
 import model.Utilisateur;
 import util.AccesBase;
 
@@ -32,6 +33,7 @@ public class UtilisateurDAO {
 				utilisateur.setNom(rs.getString("nom"));
 				utilisateur.setPrenom(rs.getString("prenom"));
 				utilisateur.setMail(rs.getString("mail"));
+				utilisateur.setType_Utilisateur(get_type_utilisateur(mail, password));
 			}
 			// ...sinon on renvoie null
 			else {
@@ -75,5 +77,35 @@ public class UtilisateurDAO {
 		}
 		
 		return listeUtilisateurs;
+	}
+	
+	public static Type_Utilisateur get_type_utilisateur(String mail, String password) throws SQLException, NamingException, ClassNotFoundException{
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		Type_Utilisateur typeUtilisateur=null;
+		try{
+			cnx = AccesBase.getConnection();
+			rqt = cnx.prepareStatement("select id, libelle from TYPE_UTILISATEUR where id=(select type_utilisateur_id from utilisateur where mail=? and password = ?)");
+			rqt.setString(1, mail);
+			rqt.setString(2, password);
+			rs=rqt.executeQuery();
+			// SI on trouve au moins 1 r�sultat, on prend le 1er pour mettre � jour les informations de l'animateur utilis� pour la recherche.
+			if (rs.next()){
+				typeUtilisateur = new Type_Utilisateur();
+				typeUtilisateur.setId(rs.getInt("id"));
+				typeUtilisateur.setLibelle(rs.getString("libelle"));
+			}
+			// ...sinon on renvoie null
+			else {
+				typeUtilisateur = null;
+			}
+			
+		}finally{
+			if (rs!=null) rs.close();
+			if (rqt!=null) rqt.close();
+			if (cnx!=null) cnx.close();
+		}
+		return typeUtilisateur;
 	}
 }

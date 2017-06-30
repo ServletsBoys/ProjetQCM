@@ -9,8 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Test;
+import model.Type_Utilisateur;
 import model.Utilisateur;
 import dal.TestDAO;
 
@@ -19,6 +21,10 @@ import dal.TestDAO;
  */
 public class listeQcmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final String ACCES_PUBLIC     = "/index.jsp";
+    public static final String ACCES_FORMATEUR  = "/listeQcm.jsp";
+    public static final String ACCES_CANDIDAT  = "/index.jsp";
+    public static final String ATT_SESSION_USER = "sessionUtilisateur";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,8 +38,31 @@ public class listeQcmServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doWork(request, response);
+		/* Récupération de la session depuis la requête */
+        HttpSession session = request.getSession();
+
+        /*
+         * Si l'objet utilisateur n'existe pas dans la session en cours, alors
+         * l'utilisateur n'est pas connecté.
+         */
+        
+        Utilisateur utilisateur = null;
+        Type_Utilisateur type = null;
+        if ( session.getAttribute( ATT_SESSION_USER ) != null ) {
+        	utilisateur = (Utilisateur) session.getAttribute(ATT_SESSION_USER);
+        	type = utilisateur.getType_Utilisateur();
+        }
+        
+        
+		if ( session.getAttribute( ATT_SESSION_USER ) == null ) {
+            /* Redirection vers la page publique */
+            response.sendRedirect( request.getContextPath() + ACCES_PUBLIC );
+        } else if ( type.getId() == 1 ){
+            /* Affichage de la page restreinte */
+            doWork(request, response);
+        } else {
+            this.getServletContext().getRequestDispatcher( ACCES_CANDIDAT ).forward( request, response );
+        }
 	}
 
 	/**
