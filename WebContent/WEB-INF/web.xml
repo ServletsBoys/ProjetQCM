@@ -52,34 +52,48 @@
   <session-config>
     <session-timeout>1</session-timeout>
   </session-config>
-  
   <servlet>
     <servlet-name>Inscription</servlet-name>
     <servlet-class>servlet.Inscription</servlet-class>
   </servlet>
-  
   <servlet>
     <servlet-name>Connexion</servlet-name>
     <servlet-class>servlet.Connexion</servlet-class>
   </servlet>
-  
   <servlet>
-	<servlet-name>Deconnexion</servlet-name>
-	<servlet-class>servlet.Deconnexion</servlet-class>
-</servlet>
-
+    <servlet-name>Deconnexion</servlet-name>
+    <servlet-class>servlet.Deconnexion</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>Inscription</servlet-name>
     <url-pattern>/inscription</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>Connexion</servlet-name>
     <url-pattern>/connexion</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>Deconnexion</servlet-name>
     <url-pattern>/deconnexion</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>listeQuestionServlet</display-name>
+    <servlet-name>listeQuestionServlet</servlet-name>
+    <servlet-class>servlet.listeQuestionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>listeQuestionServlet</servlet-name>
+    <url-pattern>/listeQuestionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>deleteQuestionServlet</display-name>
+    <servlet-name>deleteQuestionServlet</servlet-name>
+    <servlet-class>servlet.deleteQuestionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteQuestionServlet</servlet-name>
+    <url-pattern>/deleteQuestionServlet</url-pattern>
   </servlet-mapping>
 </web-app>

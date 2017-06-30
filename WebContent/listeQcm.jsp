@@ -19,11 +19,10 @@
 				<c:forEach var="item" items="${lesTests}">
 					<tr>
 						<td>${item.libelle}</td>
-						<td>${item.nbQuestion}</td>
+						<td><a href="listeQuestionServlet?idTest=${item.id}" >${item.nbQuestion}</a></td>
 						<td>${item.timer}</td>
 						<td>${item.utilisateur.nom} ${item.utilisateur.prenom}</td>
 						<td><a href="modifTestServlet?idTest=${item.id}">modifier</a></td>
-						<td><a href="">ajouter participant</a></td>
 						<td><a href="deleteQcmServlet?idTest=${item.id}">Supprimer</a></td>
 					</tr>
 				</c:forEach>
